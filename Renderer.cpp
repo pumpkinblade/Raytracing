@@ -26,7 +26,7 @@ Color CastRay(const Ray &ray, const std::shared_ptr<Hittable> &scene, const std:
            + rec.material->Brdf(rec.position, rec.normal, wi, wo)
              * CastRay(Ray(rec.position + wo * DELTA, wo), scene, light, background, depth - 1)
              * std::max(Dot(rec.normal, wo), 0.0)
-             / pdf;
+             / std::max(pdf, EPSILON);
 }
 
 void Renderer::SetScene(const std::shared_ptr<Hittable> &sc)
@@ -77,10 +77,7 @@ void Renderer::Render()
             int idx = j * width + i;
             for (int s = 0; s < spp; s++)
             {
-                auto color = CastRay(ray, scene, light, background, maxDepth);
-                if(std::isnan(color.X() + color.Y() + color.Z()))
-                    color = background;
-                framebuffer[idx] += color * oneDivSpp;
+                framebuffer[idx] += CastRay(ray, scene, light, background, maxDepth) * oneDivSpp;
             }
         }
         std::cout << "\rRemaining line: " << (height - j - 1) << ' ' << std::flush;

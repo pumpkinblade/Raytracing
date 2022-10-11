@@ -13,16 +13,7 @@ endif()
 
 project(Raytracing)
 
-set(SOURCE_FILE
-    main.cpp
-    Matrix3.cpp
-    Transform.cpp
-    Sphere.cpp
-    Triangle.cpp
-    Renderer.cpp
-    HittableList.cpp
-    TransformedObject.cpp
-)
+file(GLOB SOURCE_FILE ${PROJECT_SOURCE_DIR}/*.cpp ${PROJECT_SOURCE_DIR}/*.h)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})

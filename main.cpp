@@ -16,7 +16,7 @@ int main(void)
     auto background = Color(0, 0, 0);
     int imWidth = 600, imHeight = 600;
     int maxDepth = 50;
-    int spp = 200;
+    int spp = 100;
 
     Camera cam(camPos, camTarget, camUp, camFovY, camAspectRatio);
 
