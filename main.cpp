@@ -17,7 +17,7 @@ int main(void)
     auto background = Color(0, 0, 0);
     int imWidth = 600, imHeight = 600;
     int maxDepth = 50;
-    int spp = 100;
+    int spp = 1000;
 
     Camera cam(camPos, camTarget, camUp, camFovY, camAspectRatio);
 
@@ -79,7 +79,7 @@ int main(void)
     box->Add(std::make_shared<Triangle>(Point3(0, 0, 1), Point3(1, 1, 1), Point3(0, 1, 1), white));
     box->Add(std::make_shared<Triangle>(Point3(0, 0, 1), Point3(1, 0, 1), Point3(1, 1, 1), white));
 
-    auto box_bvh = std::make_shared<Bvh>(box->Objects());
+    auto box_bvh = std::make_shared<Bvh>(box->Objects(), BvhParitionMethod::SAH);
 
     Transform t1;
     t1.Scale(Vector3(165, 330, 165));
@@ -93,7 +93,7 @@ int main(void)
     t2.Translate(Vector3(265, 0, 135));
     scene->Add(std::make_shared<TransformedObject>(box_bvh, t2));
 
-    auto scene_bvh = std::make_shared<Bvh>(scene->Objects());
+    auto scene_bvh = std::make_shared<Bvh>(scene->Objects(), BvhParitionMethod::SAH);
 
     Renderer renderer;
     renderer.SetScene(scene_bvh);

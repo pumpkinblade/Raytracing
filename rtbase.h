@@ -18,7 +18,8 @@ constexpr double DegreeToRadian(double degree)
     return degree / 180.0 * PI;
 }
 
-constexpr double Clamp(double v, double low, double up)
+template<typename T>
+constexpr T Clamp(T v, T low, T up)
 {
     return std::max(low, std::min(v, up));
 }
