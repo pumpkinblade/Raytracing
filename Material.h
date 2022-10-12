@@ -8,7 +8,7 @@ class Material
 {
 public:
     virtual Color Emit(const Point3 &p, const Vector3 &n, const Vector3 &wi) const { return Color(0.0, 0.0, 0.0); }
-    virtual bool Scatter(const Point3 &p, const Vector3 &n, const Vector3 &wi, Vector3& wo) const { return false; }
+    virtual bool Scatter(const Point3 &p, const Vector3 &n, const Vector3 &wi, Vector3 &wo) const { return false; }
     virtual double Pdf(const Point3 &p, const Vector3 &n, const Vector3 &wi, const Vector3 &wo) const { return 0.0; }
     virtual Color Brdf(const Point3 &p, const Vector3 &n, const Vector3 &wi, const Vector3 &wo) const { return Color(0.0, 0.0, 0.0); }
 };
@@ -32,7 +32,7 @@ class Lambertian : public Material
 public:
     Lambertian(const Color &a) : albedo(a) {}
 
-    virtual bool Scatter(const Point3 &p, const Vector3 &n, const Vector3 &wi, Vector3& wo) const override
+    virtual bool Scatter(const Point3 &p, const Vector3 &n, const Vector3 &wi, Vector3 &wo) const override
     {
         auto t = Transform::FromNormal(n);
         wo = t.TransformVector(RandomInHemiSphereCos());

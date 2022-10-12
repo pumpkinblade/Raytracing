@@ -8,12 +8,16 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_compile_options("-O3")
+    if(MSVC)
+        add_compile_options("/O3")
+    else()
+        add_compile_options("-O3")
+    endif()
 endif()
 
 project(Raytracing)
 
-file(GLOB SOURCE_FILE ${PROJECT_SOURCE_DIR}/*.cpp ${PROJECT_SOURCE_DIR}/*.h)
+file(GLOB SOURCE_FILE ${PROJECT_SOURCE_DIR}/*.h ${PROJECT_SOURCE_DIR}/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILE})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})

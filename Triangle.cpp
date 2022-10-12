@@ -55,3 +55,14 @@ double Triangle::Pdf(const Point3 &o, const Vector3 &v) const
     auto cosine = std::abs(Dot(rec.normal, v));
     return distSquared / (cosine * area);
 }
+
+Bounds3 Triangle::GetBounds() const
+{
+    Point3 pMin = Point3(std::min(std::min(vertices[0].X(), vertices[1].X()), vertices[2].X()),
+                         std::min(std::min(vertices[0].Y(), vertices[1].Y()), vertices[2].Y()),
+                         std::min(std::min(vertices[0].Z(), vertices[1].Z()), vertices[2].Z()));
+    Point3 pMax = Point3(std::max(std::max(vertices[0].X(), vertices[1].X()), vertices[2].X()),
+                         std::max(std::max(vertices[0].Y(), vertices[1].Y()), vertices[2].Y()),
+                         std::max(std::max(vertices[0].Z(), vertices[1].Z()), vertices[2].Z()));
+    return Bounds3(pMin, pMax);
+}

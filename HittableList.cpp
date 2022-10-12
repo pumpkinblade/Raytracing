@@ -2,8 +2,8 @@
 
 void HittableList::Add(const std::shared_ptr<Hittable> &obj)
 {
-    objs.push_back(obj);
-    // bounds = Bounds3::Union(obj->GetBounds(), bounds);
+    objects.push_back(obj);
+    bounds = Bounds3::Union(obj->GetBounds(), bounds);
 }
 
 bool HittableList::Hit(const Ray &ray, HitRecord &rec) const
@@ -12,7 +12,7 @@ bool HittableList::Hit(const Ray &ray, HitRecord &rec) const
     bool hit = false;
     double closest = INFTY;
 
-    for (const auto &obj : objs)
+    for (const auto &obj : objects)
     {
         if (obj->Hit(ray, tmp))
         {
@@ -29,17 +29,22 @@ bool HittableList::Hit(const Ray &ray, HitRecord &rec) const
 
 Vector3 HittableList::Sample(const Point3 &o) const
 {
-    int idx = RandomInt(0, objs.size());
-    return objs[idx]->Sample(o);
+    int idx = RandomInt(0, objects.size());
+    return objects[idx]->Sample(o);
 }
 
 double HittableList::Pdf(const Point3 &o, const Vector3 &v) const
 {
-	auto weight = 1.0 / objs.size();
-	auto sum = 0.0;
+    auto weight = 1.0 / objects.size();
+    auto sum = 0.0;
 
-	for (const auto &object : objs)
-		sum += weight * object->Pdf(o, v);
+    for (const auto &object : objects)
+        sum += weight * object->Pdf(o, v);
 
-	return sum;
+    return sum;
+}
+
+Bounds3 HittableList::GetBounds() const
+{
+    return bounds;
 }

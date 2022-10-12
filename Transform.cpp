@@ -12,9 +12,9 @@ Transform::Transform(const Matrix3 &mm, const Vector3 &vv)
     mInvT = Matrix3::Inverse(m);
 }
 
-Transform::Transform(const Point3& o, const Vector3& uu, const Vector3& vv, const Vector3& ww)
+Transform::Transform(const Point3 &o, const Vector3 &uu, const Vector3 &vv, const Vector3 &ww)
 {
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         m(i, 0) = uu(i);
         m(i, 1) = vv(i);
@@ -24,19 +24,19 @@ Transform::Transform(const Point3& o, const Vector3& uu, const Vector3& vv, cons
     mInvT = Matrix3::Inverse(Matrix3::Transpose(m));
 }
 
-void Transform::Translate(const Vector3& u)
+void Transform::Translate(const Vector3 &u)
 {
     v += u;
 }
 
-void Transform::Scale(const Vector3& s)
+void Transform::Scale(const Vector3 &s)
 {
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
-        for(int j = 0; j < 3; j++)
+        for (int j = 0; j < 3; j++)
         {
             m(i, j) *= s(i);
-            mInvT(i, j) /= s(i);   
+            mInvT(i, j) /= s(i);
         }
         v(i) *= s(i);
     }
@@ -47,7 +47,7 @@ void Transform::RotateX(double rad)
     double cosine = std::cos(rad);
     double sine = std::sin(rad);
     double t1, t2;
-    for(int j = 0; j < 3; j++)
+    for (int j = 0; j < 3; j++)
     {
         t1 = m(1, j);
         t2 = m(2, j);
@@ -70,7 +70,7 @@ void Transform::RotateY(double rad)
     double cosine = std::cos(rad);
     double sine = std::sin(rad);
     double t1, t2;
-    for(int j = 0; j < 3; j++)
+    for (int j = 0; j < 3; j++)
     {
         t1 = m(2, j);
         t2 = m(0, j);
@@ -93,7 +93,7 @@ void Transform::RotateZ(double rad)
     double cosine = std::cos(rad);
     double sine = std::sin(rad);
     double t1, t2;
-    for(int j = 0; j < 3; j++)
+    for (int j = 0; j < 3; j++)
     {
         t1 = m(0, j);
         t2 = m(1, j);
@@ -111,14 +111,14 @@ void Transform::RotateZ(double rad)
     v(1) = sine * t1 + cosine * t2;
 }
 
-Transform Transform::Inverse(const Transform& t)
+Transform Transform::Inverse(const Transform &t)
 {
     Matrix3 minv = Matrix3::Inverse(t.m);
     Vector3 vinv = minv * -t.v;
     return Transform(minv, vinv);
 }
 
-Transform Transform::FromNormal(const Vector3& n)
+Transform Transform::FromNormal(const Vector3 &n)
 {
     auto w = Normalize(n);
     auto a = std::abs(w.X()) > 0.9 ? Vector3(0, 1, 0) : Vector3(1, 0, 0);
@@ -128,7 +128,7 @@ Transform Transform::FromNormal(const Vector3& n)
     return Transform(Vector3(0.0, 0.0, 0.0), u, v, w);
 }
 
-Transform Transform::LookAt(const Point3& origin, const Point3& target, const Vector3& world_up)
+Transform Transform::LookAt(const Point3 &origin, const Point3 &target, const Vector3 &world_up)
 {
     auto w = Normalize(target - origin);
     auto u = Normalize(Cross(world_up, w));

@@ -13,6 +13,7 @@ public:
     virtual bool Hit(const Ray &ray, HitRecord &rec) const override;
     virtual Vector3 Sample(const Point3 &o) const override;
     virtual double Pdf(const Point3 &o, const Vector3 &v) const;
+    virtual Bounds3 GetBounds() const override;
 
 public:
     Point3 vertices[3];

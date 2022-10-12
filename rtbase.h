@@ -46,44 +46,44 @@ inline Vector3 RandomInSphere()
 {
     double r1 = RandomFloat();
     double r2 = RandomFloat();
-    double cos_phi = std::cos(2*PI*r1);
-    double sin_phi = std::sin(2*PI*r1);
-    double cos_theta = 1 - 2*r2;
-    double sin_theta = 2 * std::sqrt(r2*(1-r2));
-    return Vector3(cos_phi*sin_theta, sin_phi*sin_theta, cos_theta);
+    double cos_phi = std::cos(2 * PI * r1);
+    double sin_phi = std::sin(2 * PI * r1);
+    double cos_theta = 1 - 2 * r2;
+    double sin_theta = 2 * std::sqrt(r2 * (1 - r2));
+    return Vector3(cos_phi * sin_theta, sin_phi * sin_theta, cos_theta);
 }
 
 inline Vector3 RandomInHemiSphere()
 {
     double r1 = RandomFloat();
     double r2 = RandomFloat();
-    double cos_phi = std::cos(2*PI*r1);
-    double sin_phi = std::sin(2*PI*r1);
+    double cos_phi = std::cos(2 * PI * r1);
+    double sin_phi = std::sin(2 * PI * r1);
     double cos_theta = 1 - r2;
-    double sin_theta = std::sqrt(r2*(2-r2));
-    return Vector3(cos_phi*sin_theta, sin_phi*sin_theta, cos_theta);
+    double sin_theta = std::sqrt(r2 * (2 - r2));
+    return Vector3(cos_phi * sin_theta, sin_phi * sin_theta, cos_theta);
 }
 
 inline Vector3 RandomInHemiSphereCos()
 {
     double r1 = RandomFloat();
     double r2 = RandomFloat();
-    double cos_phi = std::cos(2*PI*r1);
-    double sin_phi = std::sin(2*PI*r1);
-    double cos_theta = std::sqrt(1-r2);
+    double cos_phi = std::cos(2 * PI * r1);
+    double sin_phi = std::sin(2 * PI * r1);
+    double cos_theta = std::sqrt(1 - r2);
     double sin_theta = std::sqrt(r2);
-    return Vector3(cos_phi*sin_theta, sin_phi*sin_theta, cos_theta);
+    return Vector3(cos_phi * sin_theta, sin_phi * sin_theta, cos_theta);
 }
 
 inline Vector3 RandomToSphere(double radius, double distance_squared)
 {
     auto r1 = RandomFloat();
     auto r2 = RandomFloat();
-    auto cos_theta = 1 + r2 * (std::sqrt(1 - radius*radius / distance_squared) - 1);
-    auto sin_theta = std::sqrt(1 - cos_theta*cos_theta);
-    auto cos_phi = std::cos(2*PI*r1);
-    auto sin_phi = std::sin(2*PI*r1);
-    return Vector3(cos_phi*sin_theta, sin_phi*sin_theta, cos_theta);
+    auto cos_theta = 1 + r2 * (std::sqrt(1 - radius * radius / distance_squared) - 1);
+    auto sin_theta = std::sqrt(1 - cos_theta * cos_theta);
+    auto cos_phi = std::cos(2 * PI * r1);
+    auto sin_phi = std::sin(2 * PI * r1);
+    return Vector3(cos_phi * sin_theta, sin_phi * sin_theta, cos_theta);
 }
 
 #endif

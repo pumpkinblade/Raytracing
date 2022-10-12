@@ -14,19 +14,14 @@ Color CastRay(const Ray &ray, const std::shared_ptr<Hittable> &scene, const std:
     Vector3 wi = Normalize(-ray.direction);
     Vector3 wo;
     Vector3 emitted = rec.material->Emit(rec.position, rec.normal, wi);
-    if(!rec.material->Scatter(rec.position, rec.normal, wi, wo))
+    if (!rec.material->Scatter(rec.position, rec.normal, wi, wo))
         return emitted;
 
-    if(RandomFloat() < 0.5)
+    if (RandomFloat() < 0.5)
         wo = light->Sample(rec.position);
-    double pdf = 0.5 * light->Pdf(rec.position, wo)
-                 + 0.5 * rec.material->Pdf(rec.position, rec.normal, wi, wo);
+    double pdf = 0.5 * light->Pdf(rec.position, wo) + 0.5 * rec.material->Pdf(rec.position, rec.normal, wi, wo);
 
-    return emitted
-           + rec.material->Brdf(rec.position, rec.normal, wi, wo)
-             * CastRay(Ray(rec.position + wo * DELTA, wo), scene, light, background, depth - 1)
-             * std::max(Dot(rec.normal, wo), 0.0)
-             / std::max(pdf, EPSILON);
+    return emitted + rec.material->Brdf(rec.position, rec.normal, wi, wo) * CastRay(Ray(rec.position + wo * DELTA, wo), scene, light, background, depth - 1) * std::max(Dot(rec.normal, wo), 0.0) / std::max(pdf, EPSILON);
 }
 
 void Renderer::SetScene(const std::shared_ptr<Hittable> &sc)
