@@ -68,7 +68,7 @@ void Renderer::Render()
     {
         for (int i = 0; i < width; i++)
         {
-            Ray ray = camera.GetRay(i / static_cast<double>(width), j / static_cast<double>(height));
+            Ray ray = camera.GetRay(i / static_cast<double>(width), 1.0 - j / static_cast<double>(height));
             int idx = j * width + i;
             for (int s = 0; s < spp; s++)
             {

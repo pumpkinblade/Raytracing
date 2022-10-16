@@ -21,7 +21,7 @@ public:
     void SetMaxDepth(int depth);
 
     void Render();
-    void ToBmp(const std::string &file, bool flipY);
+    void ToBmp(const std::string &file, bool flipY=true);
 
 private:
     std::shared_ptr<Hittable> scene;

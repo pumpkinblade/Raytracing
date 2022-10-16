@@ -105,7 +105,7 @@ int main(void)
     renderer.SetMaxDepth(maxDepth);
 
     renderer.Render();
-    renderer.ToBmp("cornellbox.bmp", false);
+    renderer.ToBmp("cornellbox.bmp");
 
     return 0;
 }
